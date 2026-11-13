@@ -5,23 +5,26 @@ import com.dt2.petmania.repositories.PetRepository;
 
 import java.util.List;
 
-@RequestMaping
-@RestController("api/pets")
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/pets")
 public class PetController {
 
     private final PetRepository repository;
+
     public PetController(PetRepository repository) {
         this.repository = repository;
     }
 
-    @PostMapping
-    public List<Pet> mostrar(){
-        return repository.findById();
-    }
     @GetMapping
-    public void criar(@RequestBody Pet p){
-        repository.save(p);
+    public List<Pet> mostrar() {
+        return repository.findAll();
     }
 
-    //CRIE O DELETE
+    @PostMapping
+    public Pet criar(@RequestBody Pet p) {
+        return repository.save(p);
+    }
+
 }
